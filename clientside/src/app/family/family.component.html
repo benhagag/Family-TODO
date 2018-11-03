@@ -1,0 +1,106 @@
+
+<button type="button" class="btn btn-success" (click)="showaddform()">
+  ADD family 
+</button>
+
+<!-- //add form -->
+ <form  #addfamilyform="ngForm" (ngSubmit)="addfamily(addname.value,addnickname.value,adddescription.value)" [hidden]="!addfamilyformm" >
+   
+  
+    <div class="form-group">
+      <label for="addname">name</label>
+      <input type="text"  class="form-control"  id="addname" name="addname" required minlength= 2 ngModel #addname="ngModel">
+    </div>
+
+    <div *ngIf="addname.invalid && addname.touched"
+    class="alert alert-danger"> Name must be at least 2 characters long.
+    </div>
+
+    <div class="form-group">
+      <label for="addnickname">nickname</label>
+      <input type="text"  class="form-control"  id="addnickname" name="addnickname" required minlength= 2 ngModel #addnickname="ngModel">
+    </div>
+
+    <div *ngIf="addnickname.invalid && addnickname.touched"
+    class="alert alert-danger"> nickname must be at least 2 characters long.
+    </div>
+
+    <div class="form-group">
+      <label for="adddescription">description:</label>
+      <input type="text"   class="form-control"  id="adddescription" name="adddescription" required ngModel #adddescription="ngModel">
+    </div>
+
+    <div *ngIf="adddescription.invalid && adddescription.touched"
+    class="alert alert-danger"> description is required.
+    </div>
+
+  
+    <button type="submit" class="btn btn-default" [disabled]="!addfamilyform.valid">ADD</button>
+    &nbsp;&nbsp;&nbsp;&nbsp;
+    <button type="button" class="btn btn-default" (click)="hideaddform()">ClOSE ADD form</button>
+  </form>
+
+ <!-- edit form  -->
+   <form  #editfamilyform="ngForm" (ngSubmit)="editfamilyfunc(editname.value,editnickname.value,editdescription.value,urledit.value)" [hidden]="!editfamilyformm" >
+
+
+      <div class="form-group">
+        <label for="editname">name</label>
+        <input type="text" value="{{name}}" class="form-control" id="editname" name="editname" required minlength= 2 ngModel #editname="ngModel">
+      </div>
+   
+
+       <!-- hideen input id  -->
+       <input type="text" #urledit value="{{onefamily}}" style="display: none;">
+
+      <div *ngIf="editname.invalid && editname.touched"
+      class="alert alert-danger"> Name must be at least 2 characters long.
+      </div>
+
+      <div class="form-group">
+          <label for="editnickname">nickname</label>
+          <input type="text" value="{{nickname}}" class="form-control" id="editnickname" name="editnickname" required minlength= 2 ngModel #editnickname="ngModel">
+        </div>
+
+        <div *ngIf="editnickname.invalid && editnickname.touched"
+        class="alert alert-danger"> nickName must be at least 2 characters long.
+        </div>
+  
+      <div class="form-group">
+        <label for="editdescription">description:</label>
+        <input type="text"  value="{{description}}" class="form-control" id="editdescription" name="editdescription" required ngModel #editdescription="ngModel">
+      </div>
+  
+      <div *ngIf="editdescription.invalid && editdescription.touched"
+      class="alert alert-danger"> description is required
+      </div>
+  
+      <button type="submit" class="btn btn-default" [disabled]="!editfamilyform.valid">EDIT</button>
+      &nbsp;&nbsp;&nbsp;&nbsp;
+      <button type="button" class="btn btn-default" (click)="hideeditform()">ClOSE EDIT form</button>
+    </form> 
+
+
+
+
+<table class="table table-striped">
+    <thead>
+      <tr>
+        <th>name</th>
+        <th>nickname</th>
+        <th>description</th>
+        <th>edit</th>
+
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let onefamily of family">
+          <td>{{onefamily.name}}</td>
+          <td>{{onefamily.nickname}}</td>
+          <td>{{onefamily.description}}</td>
+          <td><button type="button" class="btn btn-success" (click)="showeditform(onefamily)">EDIT</button></td>
+      </tr>
+    </tbody>
+  </table>
+
+      

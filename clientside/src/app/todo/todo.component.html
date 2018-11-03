@@ -1,0 +1,65 @@
+
+<button type="button" class="btn btn-success" (click)="showaddform()">
+  ADD TODO 
+</button>
+
+<!-- //add form -->
+<form  #addtodoformm="ngForm" (ngSubmit)="addtodo(familyid.value,descriptin.value)" [hidden]="!addtodoform" >
+
+
+
+    <div class="form-group">
+        <label for="familyselect">family memeber to choose : (select one):</label>
+<select  class="form-control" required name="familyselect" #familyid>
+    <option *ngFor="let familyone of family" value="{{familyone._id}}" name="familyid" >{{familyone.name}}</option>
+  </select>
+</div>
+
+
+    <div class="form-group">
+      <label for="descriptin">descriptin:</label>
+      <input type="text"    class="form-control"  id="descriptin" name="descriptin" required ngModel #descriptin="ngModel">
+    </div>
+
+    <div *ngIf="descriptin.invalid && descriptin.touched"
+    class="alert alert-danger"> descriptin is required
+    </div>
+
+    <button type="submit" class="btn btn-default" [disabled]="!addtodoformm.valid">ADD</button>
+    &nbsp;&nbsp;&nbsp;&nbsp;
+    <button type="button" class="btn btn-default" (click)="hideaddform()">ClOSE ADD form</button>
+  </form>
+
+
+  <form [hidden]="!edittodoform" >
+
+    <h3>to do details: </h3>
+    <p>family member name is :{{todofamilyname}} </p>
+    <p>date created :{{datetodo}} </p>
+    <p>description : {{description}}</p>
+      <button type="button" class="btn btn-default" (click)="hideeditform()">ClOSE SHOW </button>
+    </form>
+
+<table class="table table-striped">
+    <thead>
+      <tr>
+        <th>fmaily member</th>
+        <th>date</th>
+        <th>description</th>
+        <th>show</th>
+        <th>delete</th>
+
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let todo of todos">
+          <td>{{todo.familymember.name}}</td>
+          <td>{{todo.createdat}}</td>
+          <td>{{todo.description}}</td>
+          <td><button type="button" class="btn btn-success" (click)="showeditform(todo)">SHOW</button></td>
+          <td><button type="button" class="btn btn-success" (click)="deletetodo(todo)">DELETE</button></td>
+      </tr>
+    </tbody>
+  </table>
+
+      
